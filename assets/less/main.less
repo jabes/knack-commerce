@@ -1,0 +1,717 @@
+@import "../vendor/lesshat/lesshat.less";
+@imgRoot: "../img";
+
+//*
+//* VARIABLES: DIMENSIONS
+//********************
+
+@desktop-width: 940px;
+@mobile-width: 320px;
+
+//*
+//* VARIABLES: COLORS
+//********************
+
+@black: #000000;
+@grey: #888888;
+@dark-grey: #444444;
+@white: #ffffff;
+@dirty-white: #dddddd;
+@blue: #0073be;
+
+//*
+//* MIXINS
+//********************
+
+.inline-block () {
+	display: -moz-inline-stack;
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+}
+
+.websafe-radial-gradient(@colorFrom, @colorTo) {
+	.no-cssgradients & {
+		background-color: @colorFrom; // Old browsers 
+	}
+	.cssgradients & {
+		background-image: -moz-radial-gradient(center, ellipse cover, @colorFrom 0%, @colorTo 100%); // FF3.6+ 
+		background-image: -webkit-gradient(radial, center center, 0, center center, 800, from(@colorFrom), to(@colorTo)); // Chrome,Safari4+ 
+		background-image: -webkit-radial-gradient(center, ellipse cover, @colorFrom 0%, @colorTo 100%); // Chrome10+,Safari5.1+ 
+		background-image: -o-radial-gradient(center, ellipse cover, @colorFrom 0%, @colorTo 100%); // Opera 12+ 
+		background-image: -ms-radial-gradient(center, ellipse cover, @colorFrom 0%, @colorTo 100%); // IE10+ 
+		background-image: radial-gradient(ellipse at center, @colorFrom 0%, @colorTo 100%); // W3C 
+	}
+	.lt-ie9 & {
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colorFrom', endColorstr='@colorTo', GradientType=1); // IE6-9 fallback on horizontal gradient 
+	}
+}
+
+.websafe-radial-gradient-rgba(@colorFrom, @fadeFrom, @colorTo, @fadeTo) {
+	.no-cssgradients & {
+		background-color: fade(@colorFrom, @fadeFrom);
+	}
+	.cssgradients & {
+		background-image: -moz-radial-gradient(center, ellipse cover, fade(@colorFrom, @fadeFrom) 0%, fade(@colorTo, @fadeTo) 100%); // FF3.6+ 
+		background-image: -webkit-gradient(radial, center center, 0, center center, 800, from(fade(@colorFrom, @fadeFrom)), to(fade(@colorTo, @fadeTo))); // Chrome,Safari4+ 
+		background-image: -webkit-radial-gradient(center, ellipse cover, fade(@colorFrom, @fadeFrom) 0%, fade(@colorTo, @fadeTo) 100%); // Chrome10+,Safari5.1+ 
+		background-image: -o-radial-gradient(center, ellipse cover, fade(@colorFrom, @fadeFrom) 0%, fade(@colorTo, @fadeTo) 100%); // Opera 12+ 
+		background-image: -ms-radial-gradient(center, ellipse cover, fade(@colorFrom, @fadeFrom) 0%, fade(@colorTo, @fadeTo) 100%); // IE10+ 
+		background-image: radial-gradient(ellipse at center, fade(@colorFrom, @fadeFrom) 0%, fade(@colorTo, @fadeTo) 100%); // W3C 
+	}
+	.lt-ie9 & {
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colorFrom', endColorstr='@colorTo', GradientType=1); // IE6-9 fallback on horizontal gradient 
+	}
+}
+
+//*
+//* LAYOUT
+//********************
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-image: url("@{imgRoot}/body-background.png");
+	background-repeat: repeat;
+	background-position: 0 50%;
+}
+
+.group {
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+	zoom: 1; // For IE 6/7 (trigger hasLayout)
+}
+
+.top-bar {
+	
+	@h: 40px;
+
+	width: 100%;
+	height: @h;
+	margin: 0; // remove unwanted margins in older MSIE browsers
+
+	background: @black;
+	.opacity(0.80);
+
+	.bar-inner {
+
+		width: @desktop-width;
+		height: @h;
+		margin: 0 auto;
+		text-align: right;
+
+		span {
+
+			color: @grey;
+			line-height: @h;
+			font-size: 16px;
+
+			&:not(:last-child):after {
+				content: "|";
+				margin: 0 10px;
+				color: darken(@grey, 25%);
+			}
+
+			a {
+				color: @white;
+				text-decoration: none;
+				&:hover {
+					text-decoration: underline;	
+				}
+			}
+		}
+	}
+}
+
+.logo-knack {
+	display: block;
+	width: 145px;
+	height: 51px;
+	background-image: url("@{imgRoot}/logo-knack.png");
+	background-repeat: no-repeat;
+}
+
+.body-content {
+
+	width: 100%;
+
+	.content-inner {
+
+		width: @desktop-width;
+		margin: 0 auto;
+		padding: 20px 0;
+
+	}
+}
+
+.feature-blob {
+
+	width: 100%;
+	height: auto;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	position: relative;
+	zoom: 1; // trigger hasLayout
+
+	.blob-image {
+		z-index: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 744px;
+		height: 385px;
+		overflow: hidden;
+		.box-shadow(0, 0, 2px, @black);
+		.border-radius(2px 0 0 2px);
+	}
+
+	.blob-context {
+		
+		@w: 380px;
+		@pad: 10px;
+		
+		position: relative;
+		z-index: 1;
+		width: @w;
+		height: auto;
+		margin-left: @desktop-width - (@w + (@pad * 2));
+		padding: @pad;
+		background-color: @dirty-white;
+		color: @dark-grey;
+		font-family: "DroidSerifRegular";
+		font-size: 13px;
+		
+		.box-shadow(0, 1px, 2px, @black);
+		.border-radius(5px);
+		
+		.heading {
+			margin: 0;
+			border-bottom: 2px solid @blue;
+			color: @blue;
+			text-transform: uppercase;
+			font-family: "RobotoRegular";
+			font-size: 12px;
+			font-weight: normal;
+		}
+
+		.lead {
+			font-size: 18px;
+			color: darken(@dark-grey, 30%);
+		}
+	}
+}
+
+.quote-blob {
+	
+	@w: @desktop-width;
+	@color: @blue;
+
+	width: 100%;
+	height: auto;
+	padding: 30px 0 50px 0;
+	border-top: 1px solid @color;
+
+	.websafe-radial-gradient-rgba(@color, 30%, @color, 80%);
+
+	.blob-inner {
+
+		width: @w;
+		height: auto;
+		margin: 0 auto;
+		
+		.heading {
+			font-family: "RobotoRegular";
+			font-size: 26px;
+			color: @white;
+		}
+
+		.quote {
+
+			display: block;
+			position: relative;
+			margin: 0;
+			padding: 10px 20px 0 50px;
+			font-family: "DroidSerifRegular";
+			font-size: 16px;
+			line-height: 1.45;
+			color: @white;
+			zoom: 1; // trigger hasLayout
+
+			&:before {
+				display: block;
+				content: "\201C";
+				position: absolute;
+				left: 0;
+				top: -20px;
+				font-size: 80px;
+				.lt-ie8 & {
+					content: '"';
+				}
+			}
+			
+			cite {
+				
+				display: block;
+				position: relative;
+				margin-top: 5px;
+				padding-left: 20px;
+				font-size: 14px;
+				zoom: 1; // trigger hasLayout
+				
+				&:before {
+					display: block;
+					content: "\2014 \2009";
+					position: absolute;
+					left: 0;
+					top: 0;
+					.lt-ie8 & {
+						content: '--';
+					}
+				}
+			}
+		}
+	}
+}
+
+.contact-blob {
+
+	@w: @desktop-width;
+	@color: @white;
+
+	width: 100%;
+	height: auto;
+	padding: 30px 0 50px 0;
+	border-top: 1px solid @color;
+	
+	.websafe-radial-gradient-rgba(@color, 50%, @color, 90%);
+	
+	.blob-inner {
+		
+		width: @w;
+		height: auto;
+		margin: 0 auto;
+		
+		.heading {
+			font-family: "RobotoRegular";
+			font-size: 26px;
+			color: @dark-grey;
+		}
+
+		.map-holder {
+			
+			@map-w: 450px;
+			@map-h: 320px;
+			
+			width: @map-w;
+			height: @map-h;
+			padding: 10px;
+			background-color: fade(@black, 50%);
+			
+			//.inline-block();
+			.border-radius(5px);
+			
+			.no-rgba & {
+				background-color: @grey;
+			}
+
+			#googMapCanvas {
+				width: @map-w;
+				height: @map-h;
+			}
+		}
+
+		.sm-head {
+			margin: 20px 0 10px 0;
+			border-bottom: 2px solid @blue;
+			color: @blue;
+			text-transform: uppercase;
+			font-family: "RobotoRegular";
+			font-size: 12px;
+			font-weight: normal;
+		}
+
+		.lead {
+			font-size: 18px;
+			color: @dark-grey;
+		}
+
+		.cinfo {
+			span {
+				display: block;
+				color: @blue;
+				a {
+					color: @dark-grey;
+					text-decoration: none;
+					&:hover {
+						text-decoration: underline;	
+					}
+				}
+			}
+		}
+	}
+}
+
+.gallery-blob {
+
+	@w: @desktop-width;
+	@color: @black;
+
+	width: 100%;
+	height: auto;
+	padding: 30px 0 50px 0;
+	border-top: 1px solid @color;
+	
+	.websafe-radial-gradient-rgba(@color, 40%, @color, 80%);
+
+	.blob-inner {
+
+		width: @w;
+		height: auto;
+		margin: 0 auto;
+
+		.heading {
+			font-family: "RobotoRegular";
+			font-size: 26px;
+			color: @white;
+		}
+
+		.gallery-nav {
+			font-size: 0; // prevent unwanted white space on child inline block elements	
+			a {
+				color: @blue;
+				background-color: darken(@blue, 25%);
+				margin: 0 2px;
+				padding: 10px;
+				font-size: 16px;
+				text-decoration: none;
+				.inline-block();
+				.border-radius(5px 5px 0 0);
+			
+				&:hover,
+				&.active {
+					background-color: @blue;
+					color: @white;
+				}
+			}
+		}
+
+		.gallery-tab {
+
+			width: 100%;
+			height: auto;
+			display: none;
+
+			.gallery-container {
+				
+				@image-w: 640px;
+				@image-h: 492px;
+				
+				@thumb-cols: 3;
+				@thumb-scale: 8;
+				@thumb-w: @image-w / @thumb-scale;
+				@thumb-h: @image-h / @thumb-scale;
+				@thumb-margin: 10px;
+				@thumb-padding: 3px;
+				@thumb-container-w: (@thumb-w + (@thumb-padding * 2) + @thumb-margin) * @thumb-cols;
+
+				width: @image-w + @thumb-container-w + 20px;
+				height: auto;
+				position: relative;
+
+				ul, li {
+					display: block;
+					margin: 0;
+					text-align: center;
+				}
+				
+				li {
+					font-size: 0; // prevent unwanted white space on child inline block elements
+					background-color: @black;
+				}
+
+				img {
+					width: auto;
+					height: @image-h;
+					.inline-block();
+				}
+
+				.bx-slider {
+					width: @image-w;
+					height: @image-h;
+					float: left;
+				}
+
+				.bx-pager {
+
+					font-size: 0; // prevent unwanted white space on child inline block elements
+					width: @thumb-container-w;
+					height: auto;
+					float: right;
+
+					a {
+						
+						width: @thumb-w + (@thumb-padding * 2);
+						height: @thumb-h + (@thumb-padding * 2);				
+						margin-right: @thumb-margin;
+						margin-bottom: @thumb-margin;
+						.inline-block();
+						
+						img {
+							width: @thumb-w;
+							height: @thumb-h;
+							padding: @thumb-padding;
+							background-color: @white;
+						}
+
+						&.active img,
+						&:hover img {
+							background-color: @blue;
+						}
+					}
+				}
+
+			}
+		}
+	}
+}
+
+.body-foot {
+
+	@color: @black;
+	@w: @desktop-width;
+	@h: 200px;
+
+	width: 100%;
+	height: @h;
+	border-top: 1px solid @color;
+	margin: 0; // remove unwanted margins in older MSIE browsers
+
+	.websafe-radial-gradient-rgba(@color, 40%, @color, 80%);	
+
+	.foot-inner {
+
+		width: @w;
+		height: @h;
+		margin: 0 auto;
+		position: relative;
+		
+		.logo-knack {
+			position: absolute;
+			top: 30px;
+			left: 0;
+		}
+
+		.cinfo {
+			
+			border-left: 1px solid fade(@white, 20%);
+			padding-left: 10px; 
+			position: absolute;
+			top: 34px;
+			left: 180px;
+			
+			.no-rgba & {
+				border-color: @grey;
+			}
+
+			span {
+				display: block;
+				color: @blue;
+				a {
+					color: @grey;
+					text-decoration: none;
+					line-height: 25px;
+					&:hover {
+						text-decoration: underline;	
+					}
+				}
+			}
+		}
+	}
+}
+
+.two-col {
+	
+	//display: table;
+	width: 100%;
+	.group; // clearfix
+
+	.col {
+		
+		//display: table-cell;
+		vertical-align: top;
+		width: 50%;
+		float: left;
+		
+		&.padding {
+			width: 46%;
+			padding: 0 2%;
+		}
+	}
+}
+
+.tel {
+	pointer-events: none;
+	text-decoration: none;
+}
+
+.no-text {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+@media only screen and (max-width: @desktop-width) {
+
+	.tel {
+		pointer-events: auto;
+		text-decoration: underline;
+	}
+	
+	.logo-knack {
+		margin: 0 auto;
+	}
+
+	.top-bar {
+		.bar-inner {	
+			width: auto;
+			text-align: center;
+			span {
+				font-size: 12px;
+			}
+			& > :first-child {
+				display: none;
+			}
+		}
+	}
+
+	.body-content {
+		width: 100%;
+		.content-inner {
+			width: auto;
+		}
+	}
+
+	.feature-blob {
+		width: auto;
+		margin: 20px;
+		.blob-image {
+			display: none;
+		}
+		.blob-context {
+			width: auto;
+			margin-left: 0;
+		}
+	}
+
+	.quote-blob {	
+		.blob-inner {
+			width: auto;
+			padding: 0 20px;
+			.heading {
+				text-align: center;
+				font-size: 22px;
+			}
+			.two-col {
+				.col {
+					width: auto;
+					float: none;
+					&:last-child {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	.contact-blob {
+		.blob-inner {
+			width: auto;
+			* {
+				text-align: center;
+			}
+			.heading {
+				text-align: center;
+				font-size: 22px;
+			}
+			.map-holder {
+				width: auto;
+				margin: 0 10px;
+				#googMapCanvas {
+					width: auto;
+				}
+			}
+			.two-col {
+				.col {
+					width: auto;
+					float: none;
+				}
+			}
+		}
+	}
+	
+	.gallery-blob {
+		.blob-inner {
+			width: auto;
+			.heading {
+				text-align: center;
+				font-size: 22px;
+			}
+			.gallery-nav {
+				text-align: center;
+				margin-bottom: 10px;
+				a {
+					margin: 5px;
+					font-size: 14px;
+					.border-radius(5px);
+				}
+			}
+			.gallery-tab {
+				width: auto;
+				padding: 20px;
+				.gallery-container {
+					width: auto;
+					img {
+						height: auto;
+					}
+					.bx-slider {
+						width: auto;
+						height: auto;
+						float: none;
+					}
+					.bx-pager {
+						width: auto;
+						float: none;
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+
+	.body-foot {
+		.foot-inner {
+			width: auto;
+			overflow: hidden;
+			.logo-knack {
+				position: relative;
+				top: 0;
+				margin: 30px auto 10px auto;
+			}
+			.cinfo {
+				display: none;
+			}
+		}
+	}
+
+}
+

@@ -1,0 +1,27 @@
+@root: '../fonts';
+
+@font-face {
+	@name: 'DroidSerifRegular';
+	@path: '@{root}/DroidSerif-Regular-webfont';
+	font-family: @name;
+	src: url('@{path}.eot');
+	src: url('@{path}.eot?#iefix') format('embedded-opentype'),
+		url('@{path}.woff') format('woff'),
+		url('@{path}.ttf') format('truetype'),
+		url('@{path}.svg#@{name}') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	@name: 'RobotoRegular';
+	@path: '@{root}/Roboto-Regular-webfont';
+	font-family: @name;
+	src: url('@{path}.eot');
+	src: url('@{path}.eot?#iefix') format('embedded-opentype'),
+		url('@{path}.woff') format('woff'),
+		url('@{path}.ttf') format('truetype'),
+		url('@{path}.svg#@{name}') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
