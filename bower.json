@@ -1,19 +1,15 @@
 {
-	"name": "knackcommerce",
+	"name": "knackcommerce.com",
 	"dependencies": {
-		"jquery": "jquery#1.10.1",
-		"modernizr": "modernizr",
-		"normalize-css": "normalize-css",
-		"less-js": "git://github.com/less/less.js.git",
-		"lesshat": "lesshat",
-		"bxslider": "git://github.com/wandoledzep/bxslider-4.git",
-		"html5shiv": "git://github.com/aFarkas/html5shiv.git",
-		"ie7-js": "git://github.com/roylory/ie7-js.git"
+		"jquery": "1.12.4",
+		"modernizr": "2.8.3",
+		"normalize-css": "7.0.0",
+		"bxslider": "latest",
+		"html5shiv": "3.7.3",
+		"ie7-js": "latest"
 	},
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"components",
-		"bower_components"
-	]
+	"devDependencies": {
+		"less": "1.7.5",
+		"lesshat": "2.0.15"
+	}
 }

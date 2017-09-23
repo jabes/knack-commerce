@@ -1,1 +1,6 @@
+**/.*
+!.bowerrc
+!.gitignore
+!.htaccess
+
 assets/vendor/
