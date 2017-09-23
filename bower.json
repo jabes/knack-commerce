@@ -1,15 +1,13 @@
 {
-	"name": "knackcommerce.com",
-	"dependencies": {
-		"jquery": "1.12.4",
-		"modernizr": "2.8.3",
-		"normalize-css": "7.0.0",
-		"bxslider": "latest",
-		"html5shiv": "3.7.3",
-		"ie7-js": "latest"
-	},
-	"devDependencies": {
-		"less": "1.7.5",
-		"lesshat": "2.0.15"
-	}
+  "name": "knackcommerce.com",
+  "dependencies": {
+    "bxslider": "latest",
+    "html5shiv": "3.7.3",
+    "ie7-js": "latest",
+    "jquery": "1.12.4",
+    "less": "1.7.5",
+    "lesshat": "2.0.15",
+    "modernizr": "2.8.3",
+    "normalize-css": "7.0.0"
+  }
 }
