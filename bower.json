@@ -1,7 +1,7 @@
 {
   "name": "knackcommerce.com",
   "dependencies": {
-    "bxslider": "latest",
+    "bxslider-4": "4.2.12",
     "html5shiv": "3.7.3",
     "ie7-js": "latest",
     "jquery": "1.12.4",
